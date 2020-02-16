@@ -27,6 +27,7 @@ public class FormProductoController implements Initializable {
         producto.setDescripcion("paracetamol");
         
         System.out.println(producto.getDescripcion());
+        System.out.println(producto.getDescripcion());
     }    
     
 }
