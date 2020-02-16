@@ -28,6 +28,7 @@ public class FormProductoController implements Initializable {
         
         System.out.println(producto.getDescripcion());
         System.out.println(producto.getDescripcion());
+        System.out.println(producto.getDescripcion());
     }    
     
 }
