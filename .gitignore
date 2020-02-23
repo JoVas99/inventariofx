@@ -25,3 +25,5 @@ hs_err_pid*
 /POS.FX/nbproject/private/
 /POS.FX/dist/
 /POS.FX/build/
+/POS.BL/build/
+/POS.BL/dist/
