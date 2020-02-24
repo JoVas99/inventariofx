@@ -11,6 +11,8 @@
         <columns>
           <TableColumn fx:id="colId" prefWidth="75.0" text="ID" />
           <TableColumn fx:id="colDescripcion" prefWidth="217.0" text="Descripcion" />
+            <TableColumn fx:id="colEditar" prefWidth="75.0" />
+            <TableColumn fx:id="colEliminar" prefWidth="75.0" />
         </columns>
       </TableView>
       <Button fx:id="btnNuevo" layoutX="497.0" layoutY="67.0" mnemonicParsing="false" onAction="#nuevoProducto" text="Nuevo" />

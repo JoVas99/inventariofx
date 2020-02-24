@@ -30,6 +30,18 @@ public class ProductosServicio {
            producto.setId(id); 
         listadeProductos.add(producto);  
         }
+        else
+        {
+            listadeProductos.forEach(productoExistente -> {
+               if (productoExistente.getId().equals(producto.getId())){
+                   productoExistente.setDescripcion(producto.getDescripcion()); 
+               }
+            });
+        }
+    }
+    
+    public void eliminar(Producto producto){
+        listadeProductos.remove(producto);
     }
 
     private void crearDatosdePrueba() {

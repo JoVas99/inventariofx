@@ -5,9 +5,11 @@
  */
 package pos.fx;
 
-import java.io.IOException;
+
 import java.net.URL;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -15,6 +17,8 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -22,6 +26,7 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import pos.bl.Producto;
 import pos.bl.ProductosServicio;
+import java.io.IOException;
 
 /**
  * FXML Controller class
@@ -39,6 +44,12 @@ public class FormProductoController implements Initializable {
     @FXML
     private TableColumn<Producto, String> colDescripcion;
     
+    @FXML
+    private TableColumn colEditar;
+    
+    @FXML
+    private TableColumn colEliminar;
+    
     ObservableList<Producto> data;
     
     ProductosServicio servicio;
@@ -53,7 +64,10 @@ public class FormProductoController implements Initializable {
        colId.setCellValueFactory(new PropertyValueFactory<>("id"));
        colDescripcion.setCellValueFactory(new PropertyValueFactory("descripcion"));
        
-      cargarDatos();
+       definirColumnaEditar();
+       definirColumnaEliminar();
+       
+       cargarDatos();
     }    
     public void nuevoProducto() throws IOException{
         Producto nuevoProducto=new Producto();
@@ -86,6 +100,37 @@ public class FormProductoController implements Initializable {
        data=FXCollections.observableArrayList(servicio.obtenerProductos());
        tableView.setItems(data);
        tableView.refresh();
+    }
+
+    private void definirColumnaEditar() {
+        colEditar.setCellFactory(param -> new TableCell<String, String>() {
+            final Button btn=new Button("Editar");
+            
+            @Override
+            public void updateItem(String item, boolean empty){
+                super.updateItem(item, empty);
+                if (empty) {
+                    setGraphic(null);
+                    setText(null);
+                }
+                else{
+                    btn.setOnAction(event -> {
+                        Producto producto = (Producto) getTableRow().getItem();
+                        try {
+                            abrirVentanaModal(producto, "Editar Producto");
+                        } catch (IOException ex) {
+                            Logger.getLogger(FormProductoController.class.getName()).log(Level.SEVERE, null, ex);
+                        }
+                    });
+                    setGraphic(btn);
+                    setText(null);
+                }
+            }
+        });
+    }
+
+    private void definirColumnaEliminar() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
 }
