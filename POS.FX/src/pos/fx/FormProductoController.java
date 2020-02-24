@@ -27,6 +27,11 @@ import javafx.stage.Stage;
 import pos.bl.Producto;
 import pos.bl.ProductosServicio;
 import java.io.IOException;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.ButtonType;
+import javafx.scene.control.TextField;
 
 /**
  * FXML Controller class
@@ -45,10 +50,25 @@ public class FormProductoController implements Initializable {
     private TableColumn<Producto, String> colDescripcion;
     
     @FXML
+    private TableColumn<Producto, String> colCategoria;
+    
+    @FXML
+    private TableColumn<Producto, Double> colPrecio;
+    
+    @FXML
+    private TableColumn<Producto, Integer> colExistencia;
+    
+    @FXML
+    private TableColumn<Producto, Boolean> colActivo;
+    
+    @FXML
     private TableColumn colEditar;
     
     @FXML
     private TableColumn colEliminar;
+    
+    @FXML
+    private TextField txtBuscar;
     
     ObservableList<Producto> data;
     
@@ -63,6 +83,10 @@ public class FormProductoController implements Initializable {
        servicio=new ProductosServicio();
        colId.setCellValueFactory(new PropertyValueFactory<>("id"));
        colDescripcion.setCellValueFactory(new PropertyValueFactory("descripcion"));
+       colCategoria.setCellValueFactory(c -> new SimpleStringProperty(c.getValue().getCategoria().getDescripcion()));
+       colPrecio.setCellValueFactory(new PropertyValueFactory<>("precio"));
+       colExistencia.setCellValueFactory(new PropertyValueFactory<>("existencia"));
+       colActivo.setCellValueFactory(new PropertyValueFactory<>("activo"));
        
        definirColumnaEditar();
        definirColumnaEliminar();
@@ -73,8 +97,14 @@ public class FormProductoController implements Initializable {
         Producto nuevoProducto=new Producto();
         abrirVentanaModal(nuevoProducto,"Nuevo Producto");
     }
-    public void guardar(Producto producto){
-        servicio.guardar(producto);
+    public String guardar(Producto producto){
+        String resultado=servicio.guardar(producto);
+        if(resultado.equals("")){
+            cargarDatos();
+        }     
+        return resultado;
+    }
+    public void buscar(){
         cargarDatos();
     }
 
@@ -97,7 +127,13 @@ public class FormProductoController implements Initializable {
     }
 
     private void cargarDatos() {
-       data=FXCollections.observableArrayList(servicio.obtenerProductos());
+        if(txtBuscar.getText()==null ||txtBuscar.getText().equals("")){
+           data=FXCollections.observableArrayList(servicio.obtenerProductos());
+        }else{
+            data=FXCollections
+                    .observableArrayList(servicio.obtenerProductos(txtBuscar.getText()));
+        }
+      
        tableView.setItems(data);
        tableView.refresh();
     }
@@ -130,7 +166,38 @@ public class FormProductoController implements Initializable {
     }
 
     private void definirColumnaEliminar() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+         colEliminar.setCellFactory(param -> new TableCell<String, String>() {
+            final Button btn=new Button("Eliminar");
+            
+            @Override
+            public void updateItem(String item, boolean empty){
+                super.updateItem(item, empty);
+                if (empty) {
+                    setGraphic(null);
+                    setText(null);
+                }
+                else{
+                    btn.setOnAction(event -> {
+                        Producto producto = (Producto) getTableRow().getItem();
+                      eliminar(producto);
+                    });
+                    setGraphic(btn);
+                    setText(null);
+                }
+            }
+        });
+    }
+    private void eliminar(Producto producto){
+        Alert alert = new Alert(AlertType.CONFIRMATION,
+        "¿Esta seguro que desea eliminar el producto " +producto.getDescripcion()+"?",
+         ButtonType.YES,ButtonType.NO);     
+        
+        alert.showAndWait();
+        
+        if(alert.getResult()==ButtonType.YES){
+            servicio.eliminar(producto);
+            cargarDatos();
+        }
     }
     
 }
