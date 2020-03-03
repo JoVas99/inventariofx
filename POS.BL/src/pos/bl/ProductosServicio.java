@@ -70,6 +70,18 @@ public class ProductosServicio {
     public void eliminar(Producto producto){
         listadeProductos.remove(producto);
     }
+    public Producto clonar(Producto producto){
+        Producto productoClonado = new Producto();
+        
+        productoClonado.setId(producto.getId());
+        productoClonado.setDescripcion(producto.getDescripcion());
+        productoClonado.setCategoria(producto.getCategoria());
+        productoClonado.setPrecio(producto.getPrecio());
+        productoClonado.setExistencia(producto.getExistencias());
+        productoClonado.setActivo(producto.getActivo());
+        return productoClonado;
+        
+    }
 
     private void crearDatosdePrueba() {
         Categoria categoria1=new Categoria("Medicinas");

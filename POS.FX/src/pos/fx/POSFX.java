@@ -16,14 +16,22 @@ import javafx.stage.Stage;
  * @author DELL
  */
 public class POSFX extends Application {
+    public static Boolean isSplashLoaded= false;
+    static Stage stage;
     
+    public static Stage getStage(){
+        return stage;
+    }
     @Override
     public void start(Stage stage) throws Exception {
-        Parent root = FXMLLoader.load(getClass().getResource("FormProducto.fxml"));
+        POSFX.stage=stage;
+        Parent root = FXMLLoader.load(getClass()
+                .getResource("/pos/fx/Menu/main.fxml"));
         
         Scene scene = new Scene(root);
         
         stage.setScene(scene);
+        stage.setTitle("Inventario de Clinica");
         stage.show();
     }
 
