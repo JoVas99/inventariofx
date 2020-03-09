@@ -77,7 +77,7 @@ public class Producto {
     public SimpleDoubleProperty precioProperty(){
         return precio;
     }
-    public Integer getExistencias() {
+    public Integer getExistencia() {
         return existencia.get();
     }
 

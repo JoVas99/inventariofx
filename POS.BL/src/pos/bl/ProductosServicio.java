@@ -24,7 +24,7 @@ public class ProductosServicio {
         
         Transaction tx=session.beginTransaction();
         
-        Criteria query=session.createCriteria(Categoria.class);
+        Criteria query=session.createCriteria(Producto.class);
         List<Producto> resultado=query.list();
         
         tx.commit();
@@ -39,7 +39,7 @@ public class ProductosServicio {
         
         Transaction tx=session.beginTransaction();
         
-        Criteria query=session.createCriteria(Categoria.class);
+        Criteria query=session.createCriteria(Producto.class);
         query.add(Restrictions.like("descripcion", buscar,MatchMode.ANYWHERE));
         
         List<Producto> resultado=query.list();
@@ -55,7 +55,7 @@ public class ProductosServicio {
         //eliminamos parte del if y configuramos el boton guardar
         //si ya existe loactializa si no lo guarda
         if(resultado.equals("")){
-            Session session=HibernateUtil.getSessionFactory().getCurrentSession();
+            Session session=HibernateUtil.getSessionFactory().openSession();
             Transaction tx=session.beginTransaction();
             try {
                 session.saveOrUpdate(producto);
@@ -74,7 +74,7 @@ public class ProductosServicio {
     
     public void eliminar(Producto producto){
         //copiamos guardar solo que delete y el menaje del try en consola
-        Session session=HibernateUtil.getSessionFactory().getCurrentSession();
+        Session session=HibernateUtil.getSessionFactory().openSession();
             Transaction tx=session.beginTransaction();
             try {
                 session.delete(producto);
@@ -94,7 +94,7 @@ public class ProductosServicio {
         productoClonado.setDescripcion(producto.getDescripcion());
         productoClonado.setCategoria(producto.getCategoria());
         productoClonado.setPrecio(producto.getPrecio());
-        productoClonado.setExistencia(producto.getExistencias());
+        productoClonado.setExistencia(producto.getExistencia());
         productoClonado.setActivo(producto.getActivo());
         return productoClonado;
         
@@ -110,7 +110,7 @@ public class ProductosServicio {
         if(producto.getPrecio() < 0){
             return "Ingrese un preciomayor o igual a cero";
         }
-        if(producto.getExistencias() < 0){
+        if(producto.getExistencia() < 0){
             return "La existencia debe ser mayor que cero";
         }
         return "";
