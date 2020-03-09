@@ -10,11 +10,22 @@ import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 
 /**
  *
  * @author DELL
  */
+//Creamos una entidad y el nombre de la tabla
+@Entity
+@Table(name="Producto")
+
 public class Producto {
     private SimpleIntegerProperty id;
     private SimpleStringProperty descripcion;
@@ -31,6 +42,9 @@ public class Producto {
        existencia=new SimpleIntegerProperty();
        activo=new SimpleBooleanProperty(true);
     }
+    //llave primaria
+    @Id
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
 
     public Integer getId() {
         return id.get();
@@ -83,6 +97,9 @@ public class Producto {
     public SimpleBooleanProperty activoProperty(){
         return activo;
     }
+    //relacion de muchos a uno
+    @ManyToOne
+    @JoinColumn(name="categoriaId",nullable=false)
     public Categoria getCategoria() {
         return (Categoria) categoria.get();
     }

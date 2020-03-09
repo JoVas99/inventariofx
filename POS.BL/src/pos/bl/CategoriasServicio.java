@@ -6,32 +6,28 @@
 package pos.bl;
 
 import java.util.ArrayList;
+import java.util.List;
+import org.hibernate.Criteria;
+import org.hibernate.Session;
+import org.hibernate.Transaction;
 
 /**
  *
  * @author DELL
  */
+//eliminamos todo y creamos la conexion con una sesion
 public class CategoriasServicio {
-    private final ArrayList<Categoria> listadeCategorias;
-
-    public CategoriasServicio() {
-        listadeCategorias=new ArrayList<>();
-        
-        crearDatosdePrueba();
-    }
-    
     public ArrayList<Categoria> obtenerCategorias(){
-        return listadeCategorias;
-    }
-
-    private void crearDatosdePrueba() {
-        Categoria categoria1=new Categoria("Medicinas");
-        categoria1.setId(1);
+        Session session=HibernateUtil.getSessionFactory().openSession();
         
-        Categoria categoria2=new Categoria("Intrumentos y Materiales Medicos");
-        categoria2.setId(2);
+        Transaction tx=session.beginTransaction();
         
-        listadeCategorias.add(categoria1);
-        listadeCategorias.add(categoria2);
+        Criteria query=session.createCriteria(Categoria.class);
+        List<Categoria> resultado=query.list();
+        
+        tx.commit();
+        session.close();
+        
+        return new ArrayList<>(resultado);
     }
 }
