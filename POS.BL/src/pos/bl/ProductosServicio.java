@@ -96,6 +96,7 @@ public class ProductosServicio {
         productoClonado.setPrecio(producto.getPrecio());
         productoClonado.setExistencia(producto.getExistencia());
         productoClonado.setActivo(producto.getActivo());
+        productoClonado.setImagen(producto.getImagen());
         return productoClonado;
         
     }
