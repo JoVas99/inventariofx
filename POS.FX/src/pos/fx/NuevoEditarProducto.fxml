@@ -17,7 +17,7 @@
       <JFXTextField fx:id="txtDescripcion" layoutX="119.0" layoutY="98.0" prefHeight="25.0" prefWidth="367.0" />
       <JFXButton fx:id="btnAceptar" layoutX="393.0" layoutY="297.0" mnemonicParsing="false" onAction="#aceptar" styleClass="jfx-button-ok" text="Aceptar" />
       <JFXButton fx:id="btnCancelar" layoutX="473.0" layoutY="297.0" mnemonicParsing="false" onAction="#cancelar" styleClass="jfx-button-flat" text="Cancelar" />
-      <JFXComboBox fx:id="cmbCategoria" layoutX="119.0" layoutY="136.0" prefWidth="150.0" />
+      <JFXComboBox fx:id="cmbCategoria" editable="true" layoutX="119.0" layoutY="136.0" prefWidth="150.0" />
       <Label layoutX="44.0" layoutY="140.0" text="Categoria:" />
       <Label layoutX="43.0" layoutY="175.0" text="Precio:" />
       <JFXTextField fx:id="txtPrecio" layoutX="120.0" layoutY="171.0" />

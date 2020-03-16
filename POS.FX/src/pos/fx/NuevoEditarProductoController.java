@@ -78,12 +78,20 @@ public class NuevoEditarProductoController implements Initializable {
       cmbCategoria.setConverter(new StringConverter<Categoria>(){
             @Override
             public String toString(Categoria categoria) {
-            return categoria==null ? "" : categoria.getDescripcion();
+            return categoria == null ? "" : categoria.getDescripcion();
             }
 
             @Override
             public Categoria fromString(String string) {
-               return new Categoria(string);
+                if (data==null){
+                    return null;
+                }
+                for(Categoria categoria: data){
+                    if(categoria.getDescripcion().equals(string)){
+                        return categoria;
+                    }
+                }
+               return null;
             }
           
       });
@@ -92,7 +100,7 @@ public class NuevoEditarProductoController implements Initializable {
         txtExistencia.textProperty().bindBidirectional(producto.existenciaProperty(), new NumberStringConverter());
         chActivo.selectedProperty().bindBidirectional(producto.activoProperty());
         
-        imgViewImagen.imageProperty().bind(producto.imgeViewProperty());
+        imgViewImagen.imageProperty().bind(producto.imageViewProperty());
     }
 
     /**
@@ -101,8 +109,7 @@ public class NuevoEditarProductoController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
        categoriasServicio = new CategoriasServicio();
-       ObservableList<Categoria> data
-               =FXCollections.observableArrayList(categoriasServicio.obtenerCategorias());
+        data =FXCollections.observableArrayList(categoriasServicio.obtenerCategorias());
        
        cmbCategoria.setItems(data);
     }    

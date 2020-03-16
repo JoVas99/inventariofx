@@ -70,7 +70,7 @@ public class FormProductoController implements Initializable {
     @FXML
     private TableColumn colEliminar;
     
-     @FXML
+    @FXML
     private TableColumn colImagen;
     
     @FXML

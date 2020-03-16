@@ -57,10 +57,10 @@ public class Producto {
        imageView=new SimpleObjectProperty();
        imagen="0".getBytes();
     }
+    
     //llave primaria
     @Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)
-
     public Integer getId() {
         return id.get();
     }
@@ -112,9 +112,10 @@ public class Producto {
     public SimpleBooleanProperty activoProperty(){
         return activo;
     }
+    
     //relacion de muchos a uno
     @ManyToOne
-    @JoinColumn(name="categoriaId",nullable=false)
+    @JoinColumn(name="categoriaId", nullable=false)
     public Categoria getCategoria() {
         return (Categoria) categoria.get();
     }
@@ -132,6 +133,9 @@ public class Producto {
     }
     public void setImagen(byte[] imagen){
         this.imagen=imagen;
+        
+        Image img=new Image(new ByteArrayInputStream(imagen));
+        imageViewProperty().set(img);
     }
     @Transient
     public Image getImageView(){
@@ -158,7 +162,7 @@ public class Producto {
     }
     imageView.set(image);
     }
-    public SimpleObjectProperty imgeViewProperty(){
+    public SimpleObjectProperty imageViewProperty(){
         return imageView;
     }
     
