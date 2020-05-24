@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report name" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="b8d21e9d-5a52-4eb1-8d8e-afc317be6c60">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<queryString>
+		<![CDATA[select id, fecha, impuesto, total, activo from factura;]]>
+	</queryString>
+	<field name="id" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="fecha" class="java.sql.Timestamp">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="impuesto" class="java.lang.Double">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="total" class="java.lang.Double">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="activo" class="java.lang.Boolean">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<variable name="impuesto_1" class="java.lang.Double" calculation="Sum">
+		<variableExpression><![CDATA[$F{impuesto}]]></variableExpression>
+	</variable>
+	<variable name="total_1" class="java.lang.Double" calculation="Sum">
+		<variableExpression><![CDATA[$F{total}]]></variableExpression>
+	</variable>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="182" splitType="Stretch">
+			<staticText>
+				<reportElement x="184" y="34" width="170" height="20" uuid="1e08f9a3-f9e8-4acf-87e6-fcbd1d7f5280"/>
+				<textElement textAlignment="Center">
+					<font size="14" isBold="true" isUnderline="true"/>
+				</textElement>
+				<text><![CDATA[Reporte Ventas]]></text>
+			</staticText>
+			<image>
+				<reportElement x="18" y="74" width="321" height="80" uuid="72386329-cd3b-4669-af47-0579204cbb3f"/>
+				<imageExpression><![CDATA["pos/fx/LogoReporte.jpg"]]></imageExpression>
+			</image>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="35" splitType="Stretch">
+			<textField>
+				<reportElement x="0" y="15" width="64" height="20" uuid="5c525ea1-8eee-40b4-878a-5123f6a68ade"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA["Page "+$V{PAGE_NUMBER}+" of"]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report">
+				<reportElement x="71" y="15" width="40" height="20" uuid="f0fcc0e7-7178-444f-8aa1-abafae9b378b"/>
+				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<textField pattern="dd/MM/yyyy">
+				<reportElement x="436" y="13" width="100" height="20" uuid="a2f3de03-17d7-44d4-9610-c4f971edb9b4"/>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="51" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="18" width="81" height="20" uuid="8476f581-fd66-4ed7-8e63-6877a9bb4608"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[No Factura]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="111" y="18" width="100" height="20" uuid="3604f691-b758-4c2d-a0d3-29a14345ad48"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Fecha]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="339" y="18" width="100" height="20" uuid="21567081-430d-4d3a-8aaa-6feea613df5e"/>
+				<textElement textAlignment="Right">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Impuesto]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="455" y="18" width="100" height="20" uuid="69e6f72f-7aed-406b-a679-bd2d3bfeabd1"/>
+				<textElement textAlignment="Right">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Total]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="59" splitType="Stretch">
+			<textField>
+				<reportElement x="0" y="23" width="81" height="20" uuid="dd9d25d9-086f-472c-845c-abcb6a3431fd"/>
+				<textFieldExpression><![CDATA[$F{id}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="111" y="23" width="100" height="20" uuid="7220d9a6-2893-4b27-8eaf-6454d8cd2ae5"/>
+				<textFieldExpression><![CDATA[$F{fecha}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0,00">
+				<reportElement x="339" y="19" width="100" height="20" uuid="5ec9e6b3-78f3-4cf5-8fd8-262aa543d8f9"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA[$F{impuesto}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="455" y="19" width="100" height="20" uuid="408670c7-d28a-4506-8b9a-666d0aca4be2"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA[$F{total}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="45" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="54" splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch">
+			<textField pattern="#,##0,00" isBlankWhenNull="false">
+				<reportElement x="339" y="10" width="100" height="20" uuid="59062346-7c3d-47c4-b373-7eb1addb76f9"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA[$V{impuesto_1}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0,00">
+				<reportElement x="439" y="10" width="100" height="20" uuid="1253d3ab-dfc4-4f01-bcd7-534949cab49a"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA[$V{total_1}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="184" y="10" width="170" height="20" uuid="9187d822-f1fc-4383-a6b3-960ef478ce89"/>
+				<textElement textAlignment="Center">
+					<font size="10" isBold="true" isUnderline="false"/>
+				</textElement>
+				<text><![CDATA[Totales:]]></text>
+			</staticText>
+		</band>
+	</summary>
+</jasperReport>

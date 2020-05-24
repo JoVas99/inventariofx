@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXDatePicker?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+
+<VBox alignment="CENTER" stylesheets="@main.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pos.fx.FormReporteFacturasController">
+   <children>
+      <HBox alignment="CENTER" prefHeight="200.0" prefWidth="500.0" VBox.vgrow="NEVER">
+         <children>
+            <VBox alignment="CENTER">
+               <children>
+                  <JFXDatePicker fx:id="datePickerfechaInicial" prefHeight="25.0" prefWidth="150.0" promptText="Fecha inicial" />
+               </children>
+            </VBox>
+            <VBox alignment="CENTER">
+               <children>
+                  <JFXDatePicker fx:id="datePickerfechaFinal" promptText="Fecha final" />
+               </children>
+            </VBox>
+         </children>
+      </HBox>
+      <HBox prefHeight="200.0" prefWidth="500.0" />
+      <JFXButton fx:id="btnGenerar" onAction="#generarReporte" prefHeight="40.0" prefWidth="80.0" styleClass="jfx-button-ok" text="Generar" />
+   </children>
+</VBox>

@@ -156,7 +156,7 @@ public class Producto {
      * @return
      */
     @Transient
-    public InputStream getFotoStream(){
+    public InputStream getFoto(){
         return new ByteArrayInputStream(imagen);
     }
     

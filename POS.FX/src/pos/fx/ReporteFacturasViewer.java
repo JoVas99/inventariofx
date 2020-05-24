@@ -8,6 +8,7 @@ package pos.fx;
 import java.awt.Dimension;
 import java.awt.Toolkit;
 import java.io.InputStream;
+import java.util.Date;
 import javax.swing.JFrame;
 import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.JasperFillManager;
@@ -16,27 +17,29 @@ import net.sf.jasperreports.engine.JasperReport;
 import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 import net.sf.jasperreports.engine.util.JRLoader;
 import net.sf.jasperreports.swing.JRViewer;
-import pos.bl.ProductosServicio;
+import pos.bl.FacturasServicio;
+
 
 /**
  *
  * @author DELL
  */
-public class ReporteProductosViewer extends JFrame {
-public void mostrarReporte() throws JRException {//********//
-        ProductosServicio servicio = new ProductosServicio();
+public class ReporteFacturasViewer extends JFrame {
+public void mostrarReporte(Date fechaInicial, Date fechaFinal) throws JRException {
+        FacturasServicio servicio = new FacturasServicio();
 
-        String file = "/pos/fx/ReporteProductos.jasper";
+        String file = "/pos/fx/ReporteFacturas.jasper";
         InputStream stream = getClass().getResourceAsStream(file);
 
-        JasperReport reporte = (JasperReport) JRLoader.loadObject(stream);
+         JasperReport reporte = (JasperReport) JRLoader.loadObject(stream);
         JRBeanCollectionDataSource beanColDataSource = 
-                new JRBeanCollectionDataSource(servicio.obtenerProductos(), false);
+                new JRBeanCollectionDataSource(
+                        servicio.obtenerFacturas(fechaInicial,fechaFinal), 
+                    false);
 
         JasperPrint print = JasperFillManager
                 .fillReport(reporte, null, beanColDataSource);
         JRViewer viewer = new JRViewer(print);
-        
         viewer.setOpaque(true);
         viewer.setVisible(true);
 

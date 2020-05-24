@@ -23,6 +23,7 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 import net.sf.jasperreports.engine.JRException;
+import pos.fx.ReporteFacturasViewer;
 import pos.fx.ReporteProductosViewer;
 
 public class MainController implements Initializable, AbrirFormularioCallback {
@@ -122,11 +123,15 @@ public class MainController implements Initializable, AbrirFormularioCallback {
                 case "Pacientes":
                     nombreFxml= "FormPacientes.fxml";
                 break;
-                case "Reportes de productos":
+                case "Reportes de Productos":
                 { 
                     ReporteProductosViewer reporteViewer = new ReporteProductosViewer();
                 reporteViewer.mostrarReporte();
-                break;
+                return;
+                }
+                case "Reportes de Facturas":
+                { 
+                   nombreFxml= "FormReporteFacturas.fxml";
                 }
                 
                 

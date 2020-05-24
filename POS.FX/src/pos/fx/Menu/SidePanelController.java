@@ -19,7 +19,8 @@ public class SidePanelController implements Initializable {
         listView.getItems().add(new Label("Medicamentos"));
         listView.getItems().add(new Label("Pacientes"));
         listView.getItems().add(new Label("Facturas"));
-        listView.getItems().add(new Label("Reportes de productos"));   
+        listView.getItems().add(new Label("Reportes de Productos")); 
+        listView.getItems().add(new Label("Reportes de Facturas")); 
         listView.getItems().add(new Label("Salir"));   
         
         listView.setOnMouseClicked(event -> {
