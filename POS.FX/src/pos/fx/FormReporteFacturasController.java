@@ -46,9 +46,9 @@ public class FormReporteFacturasController implements Initializable {
         ReporteFacturasViewer reporteViewer = new ReporteFacturasViewer();
         try {
             Date fechaInicial = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss")
-                    .parse(getFecha(datePickerfechaInicial)+ "00:00:00");
+                    .parse(getFecha(datePickerfechaInicial)+ " 00:00:00");
             Date fechaFinal = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss")
-                    .parse(getFecha(datePickerfechaFinal)+ "23:59:59");
+                    .parse(getFecha(datePickerfechaFinal)+ " 23:59:59");
             
             reporteViewer.mostrarReporte(fechaInicial,fechaFinal);
         } catch (JRException ex) {
